@@ -6,6 +6,7 @@ public class X {
 
     public static X createX() {
         System.out.println("The X Object is created");
+        System.out.println("folk");
         return new X();
     }
 }
