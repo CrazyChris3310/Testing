@@ -5,7 +5,7 @@ public class X {
     }
 
     public static X createX() {
-        System.out.println("The X Object is created");
-        return new X();
+        X f = new X();
+        return f;
     }
 }
