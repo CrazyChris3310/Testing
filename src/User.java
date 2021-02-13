@@ -158,6 +158,36 @@ public class User {
         }
     }
 
+    public static void defineCommand() {
+        Scanner sc = new Scanner(System.in);
+        String command;
+        do {
+            System.out.print("Input a command: ");
+            command = sc.nextLine();
+            switch (command) {
+                case "help": help(); break;
+                case "info": inform(); break;
+                case "show": show(); break;
+                case "add": add(); break;
+                case "update id": updateId(); break;
+                case "remove_by_id": removeById(); break;
+                case "clear": clear(); break;
+                case "save": save(); break;
+                case "execute_script": executeScript(); break;
+                case "exit": exit(); break;
+                case "remove_first": removeFirst(); break;
+                case "remove_greater": removeGreater(); break;
+                case "history": history(); break;
+                case "remove_any_by_killer": removeAnyByKiller(); break;
+                case "print_descending": printDescending(); break;
+                case "print_field_descending": printFieldDescendingAge(); break;
+                default:
+                    System.out.println("Wrong command! Try again");
+            }
+
+        } while(!command.equals("exit"));
+    }
+
     public static void main(String[] args) {
 //        if (args.length != 1) {
 //            System.out.println("Wrong files");
@@ -172,13 +202,7 @@ public class User {
         });
 
         fillFromFile(arr);
-
-        Scanner sc = new Scanner(System.in);
-        String command;
-        do {
-            command = sc.nextLine();
-
-        } while(!command.equals("exit"));
+        defineCommand();
 
         for (Dragon i : arr) {
             System.out.println(i);
