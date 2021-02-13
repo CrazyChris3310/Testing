@@ -3,100 +3,100 @@ import Dragon.*;
 import java.io.*;
 import java.util.*;
 
-public class User {
+public class Processor {
 
-    public static void inform() {
+    String dragName = null;
+    int dragAge = 0;
+    String description = null;
+    Long wingspan = null;
+    DragonType type = null;
 
-    }
+    //Coordinates
 
-    public static void help() {
+    long cordX = 0;
+    float cordY = 0;
 
-    }
+    //Person coordinate
 
-    public static void show() {
+    String personName = null;
+    String date = null;
+    Color eye = null;
+    Color hair = null;
+    Country nation = null;
 
-    }
+    //Person location
 
-    public static void add() {
+    int locX = 0;
+    Long locY = null;
+    long locZ = 0;
 
-    }
+    Scanner sc = new Scanner(System.in);
 
-    public static void updateId() {
-
-    }
-
-    public static void removeById() {
-
-    }
-
-    public static void clear() {
-
-    }
-
-    public static void save() {
-
-    }
-
-    public static void executeScript() {
+    public void inform() {
 
     }
 
-    public static void exit() {
+    public void help() {
 
     }
 
-    public static void removeFirst() {
+    public void show() {
 
     }
 
-    public static void removeGreater() {
+    public void add() {
+        System.out.println();
+    }
+
+    public void updateId() {
 
     }
 
-    public static void history() {
+    public void removeById() {
 
     }
 
-    public static void removeAnyByKiller() {
+    public void clear() {
 
     }
 
-    public static void printDescending() {
+    public void save() {
 
     }
 
-    public static void printFieldDescendingAge() {
+    public void executeScript() {
 
     }
 
-    public static void fillFromFile(PriorityQueue<Dragon> arr) {
-        // Parameters for Dragon
+    public void exit() {
 
-        String dragName = null;
-        int dragAge = 0;
-        String description = null;
-        Long wingspan = null;
-        DragonType type = null;
+    }
 
-        //Coordinates
+    public void removeFirst() {
 
-        long cordX = 0;
-        float cordY = 0;
+    }
 
-        //Person coordinate
+    public void removeGreater() {
 
-        String personName = null;
-        String date = null;
-        Color eye = null;
-        Color hair = null;
-        Country nation = null;
+    }
 
-        //Person location
+    public void history() {
 
-        int locX = 0;
-        Long locY = null;
-        long locZ = 0;
+    }
 
+    public void removeAnyByKiller() {
+
+    }
+
+    public void printDescending() {
+
+    }
+
+    public void printFieldDescendingAge() {
+
+    }
+
+    public void fillFromFile(PriorityQueue<Dragon> arr) {
 
         int counter = 0;
         int c;
@@ -158,8 +158,7 @@ public class User {
         }
     }
 
-    public static void defineCommand() {
-        Scanner sc = new Scanner(System.in);
+    public void defineCommand() {
         String command;
         do {
             System.out.print("Input a command: ");
@@ -169,7 +168,7 @@ public class User {
                 case "info": inform(); break;
                 case "show": show(); break;
                 case "add": add(); break;
-                case "update id": updateId(); break;
+                case "update": updateId(); break;
                 case "remove_by_id": removeById(); break;
                 case "clear": clear(); break;
                 case "save": save(); break;
@@ -200,9 +199,11 @@ public class User {
                 return o1.getName().compareTo(o2.getName());
             }
         });
+        
+        Processor proc = new Processor();
 
-        fillFromFile(arr);
-        defineCommand();
+        proc.fillFromFile(arr);
+        proc.defineCommand();
 
         for (Dragon i : arr) {
             System.out.println(i);
