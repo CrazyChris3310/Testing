@@ -69,23 +69,7 @@ public class User {
 
     }
 
-    public static void FillFromFile(PriorityQueue<Dragon> arr) {
-        
-    }
-
-    public static void main(String[] args) {
-//        if (args.length != 1) {
-//            System.out.println("Wrong files");
-//            return;
-//        }
-
-        PriorityQueue<Dragon> arr = new PriorityQueue<>(new Comparator<Dragon>() {
-            @Override
-            public int compare(Dragon o1, Dragon o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
-
+    public static void fillFromFile(PriorityQueue<Dragon> arr) {
         // Parameters for Dragon
 
         String dragName = null;
@@ -172,6 +156,22 @@ public class User {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+//        if (args.length != 1) {
+//            System.out.println("Wrong files");
+//            return;
+//        }
+
+        PriorityQueue<Dragon> arr = new PriorityQueue<>(new Comparator<Dragon>() {
+            @Override
+            public int compare(Dragon o1, Dragon o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+
+        fillFromFile(arr);
 
         Scanner sc = new Scanner(System.in);
         String command;
@@ -179,6 +179,10 @@ public class User {
             command = sc.nextLine();
 
         } while(!command.equals("exit"));
+
+        for (Dragon i : arr) {
+            System.out.println(i);
+        }
 
 
     }
