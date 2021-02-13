@@ -1,8 +1,5 @@
 package Dragon;
 
-/**
- * Defines possible country where killer was born.
- */
 public enum Country {
     USA,
     INDIA,
