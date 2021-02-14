@@ -9,11 +9,11 @@ public class Person {
     private Country nationality; //Поле не может быть null
     private Location location; //Поле не может быть null
 
-    public Person() {}
-
+    //Manually
     public Person(String n, String time, Color eye, Color hair, Country country, Location loc) {
         name = n;
         eyeColor = eye;
+        birthday = LocalDateTime.parse(time.replace(" ", "T"));
         hairColor = hair;
         nationality = country;
         location = loc;

@@ -1,5 +1,6 @@
 package Dragon;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class Dragon{
@@ -13,16 +14,37 @@ public class Dragon{
     private DragonType type; //Поле может быть null
     private Person killer; //Поле может быть null
 
-    public Dragon(String name, Coordinates coordinates, int age, String description,
+
+    //From file
+    public Dragon(Long id, String name, Coordinates coordinates, String creationTime, int age, String description,
                   Long wingspan, DragonType type, Person killer) {
+        this.id = id;
         this.name = name;
         this.coordinates = coordinates;
-        this.creationDate = creationDate;
+        this.creationDate = defineDateTime(creationTime);
         this.age = age;
         this.description = description;
         this.wingspan = wingspan;
         this.type = type;
         this.killer = killer;
+    }
+
+    //Manually
+    public Dragon(String name, Coordinates coordinates, int age, String description,
+                  Long wingspan, DragonType type, Person killer) {
+        this.name = name;
+        this.coordinates = coordinates;
+        this.age = age;
+        this.description = description;
+        this.wingspan = wingspan;
+        this.type = type;
+        this.killer = killer;
+        this.creationDate = ZonedDateTime.now();
+    }
+
+
+    public Long getId() {
+        return id;
     }
 
     public void setName(String name) {
@@ -56,6 +78,12 @@ public class Dragon{
     public String getName() {
         return name;
     }
+
+    private ZonedDateTime defineDateTime(String dt) {
+        return ZonedDateTime.parse(dt.replace(" +", "+").replace(" -", "-")
+                .replace(" ", "T"));
+    }
+
 
     @Override
     public String toString() {
