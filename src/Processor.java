@@ -1,48 +1,92 @@
 import Dragon.*;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Processor {
 
-    PriorityQueue<Dragon> arr = new PriorityQueue<>(new Comparator<Dragon>() {
-        @Override
-        public int compare(Dragon o1, Dragon o2) {
-            return o1.getName().compareTo(o2.getName());
-        }
-    });
+    PriorityQueue<Dragon> arr;
 
-    private Long id = 0L;
-    private String dragName = null;
-    private int dragAge = 0;
-    private String creationTime = null;
-    private String description = null;
-    private Long wingspan = null;
-    private DragonType type = null;
+    private Long id;
+    private String dragName;
+    private int dragAge;
+    private String creationTime;
+    private String description;
+    private Long wingspan;
+    private DragonType type;
 
     //Coordinates
 
-    private long cordX = 0;
-    private float cordY = 0;
+    private long cordX;
+    private float cordY;
 
     //Person coordinate
 
-    private String personName = null;
-    private String date = null;
-    private Color eye = null;
-    private Color hair = null;
-    private Country nation = null;
+    private String personName;
+    private String date;
+    private Color eye;
+    private Color hair;
+    private Country nation;
 
     //Person location
 
-    private int locX = 0;
-    private Long locY = null;
-    private long locZ = 0;
+    private int locX;
+    private Long locY;
+    private long locZ;
 
-    private Scanner sc = new Scanner(System.in);
+    private Scanner sc;
+
+    private final LocalDateTime initDate;
+
+    private String path;
+
+    Processor(String path) {
+        this.path = path;
+
+        arr = new PriorityQueue<>(new Comparator<Dragon>() {
+            @Override
+            public int compare(Dragon o1, Dragon o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+
+        id = 0L;
+        dragName = null;
+        dragAge = 0;
+        creationTime = null;
+        description = null;
+        wingspan = null;
+        type = null;
+
+        cordX = 0;
+        cordY = 0;
+
+        personName = null;
+        date = null;
+        eye = null;
+        hair = null;
+        nation = null;
+
+        //Person location
+
+        locX = 0;
+        locY = null;
+        locZ = 0;
+
+        sc = new Scanner(System.in);
+
+        initDate = LocalDateTime.now();
+
+    }
 
     public void inform() {
-
+        System.out.println("Type of elements: Dragon");
+        System.out.println("Size = " + arr.size());
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm:ss");
+        System.out.println("Initialization date: " + fmt.format(initDate));
+        System.out.println();
     }
 
     public void help() {
@@ -50,9 +94,7 @@ public class Processor {
     }
 
     public void show() {
-        for (Dragon dragon : arr) {
-            System.out.println(dragon);
-        }
+        arr.forEach(System.out::println);
     }
 
     public void add() {
@@ -367,6 +409,12 @@ public class Processor {
     }
 
     public void save() {
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path));
+        } catch (IOException e) {
+            System.out.println("File not found!");
+        }
+
 
     }
 
@@ -392,14 +440,28 @@ public class Processor {
 
     public void removeAnyByKiller() {
 
+        Person killer = inputKiller();
+
+        for (Dragon dragon : arr) {
+            if (dragon.getKiller().equals(killer)) {
+                arr.remove(dragon);
+                return;
+            }
+        }
     }
 
     public void printDescending() {
-
+        ArrayList<Dragon> temp = new ArrayList<>(arr);
+        temp.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        temp.forEach(System.out::println);
     }
 
     public void printFieldDescendingAge() {
-
+        ArrayList<Dragon> temp = new ArrayList<>(arr);
+        temp.sort((o1, o2) -> o1.getAge() - o2.getAge());
+        for (Dragon dragon : temp) {
+            System.out.println(dragon.getAge());
+        }
     }
 
     public void parseFrom(String path) {
@@ -476,7 +538,7 @@ public class Processor {
                 case "history": history(); break;
                 case "remove_any_by_killer": removeAnyByKiller(); break;
                 case "print_descending": printDescending(); break;
-                case "print_field_descending": printFieldDescendingAge(); break;
+                case "print_field_descending_age": printFieldDescendingAge(); break;
                 case "update": updateId(input[1]); break;
                 case "remove_by_id": removeById(input[1]); break;
                 case "execute_script": executeScript(input[1]); break;
@@ -498,7 +560,7 @@ public class Processor {
 //        }
 
 
-        Processor proc = new Processor();
+        Processor proc = new Processor("Files\\bank.csv");
         proc.parseFrom("Files\\bank.csv");
         proc.defineCommand();
 

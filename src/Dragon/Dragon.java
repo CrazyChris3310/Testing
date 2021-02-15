@@ -47,32 +47,12 @@ public class Dragon{
         return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getAge() {
+        return age;
     }
 
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setWingspan(Long wingspan) {
-        this.wingspan = wingspan;
-    }
-
-    public void setType(DragonType type) {
-        this.type = type;
-    }
-
-    public void setKiller(Person killer) {
-        this.killer = killer;
+    public Person getKiller() {
+        return killer;
     }
 
     public String getName() {
