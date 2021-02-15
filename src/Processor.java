@@ -56,7 +56,21 @@ public class Processor {
     }
 
     public void add() {
+        inputDragonName();
+        inputXCord();
+        inputYCord();
+        inputAge();
+        inputDescription();
+        inputWingspan();
+        inputType();
 
+        Person killer = null;
+        if (needKiller()) {
+            killer = inputKiller();
+        }
+
+        Dragon dragon = new Dragon(dragName, new Coordinates(cordX, cordY), dragAge, description, wingspan, type, killer);
+        arr.add(dragon);
     }
 
 
@@ -349,7 +363,7 @@ public class Processor {
     }
 
     public void clear() {
-
+        arr.clear();
     }
 
     public void save() {
