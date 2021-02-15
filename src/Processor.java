@@ -12,34 +12,34 @@ public class Processor {
         }
     });
 
-    Long id = 0L;
-    String dragName = null;
-    int dragAge = 0;
-    String creationTime = null;
-    String description = null;
-    Long wingspan = null;
-    DragonType type = null;
+    private Long id = 0L;
+    private String dragName = null;
+    private int dragAge = 0;
+    private String creationTime = null;
+    private String description = null;
+    private Long wingspan = null;
+    private DragonType type = null;
 
     //Coordinates
 
-    long cordX = 0;
-    float cordY = 0;
+    private long cordX = 0;
+    private float cordY = 0;
 
     //Person coordinate
 
-    String personName = null;
-    String date = null;
-    Color eye = null;
-    Color hair = null;
-    Country nation = null;
+    private String personName = null;
+    private String date = null;
+    private Color eye = null;
+    private Color hair = null;
+    private Country nation = null;
 
     //Person location
 
-    int locX = 0;
-    Long locY = null;
-    long locZ = 0;
+    private int locX = 0;
+    private Long locY = null;
+    private long locZ = 0;
 
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
     public void inform() {
 
@@ -50,96 +50,302 @@ public class Processor {
     }
 
     public void show() {
-
+        for (Dragon dragon : arr) {
+            System.out.println(dragon);
+        }
     }
 
     public void add() {
 
     }
 
-    public void updateId() {
-        long id = 0;
 
-        try {
+    public void inputId() throws WrongIdFormatException{
+        if (sc.hasNextLong()) {
             id = sc.nextLong();
-            sc.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Wrong id format!");
-            sc.next();
-            return;
-        }
-
-        if (id < 0) {
-            System.out.println("Wrong id format!");
-            return;
-        }
-
-        boolean flag = false;
-        for (Dragon i : arr) {
-            if (i.getId() == id) {
-                flag = true;
-                break;
+            if (sc.nextLine().equals("") && id > 0) {
+                return;
             }
         }
+        else
+            sc.nextLine();
 
-        if (!flag) {
-            System.out.println("No dragon with such id!");
+        throw new WrongIdFormatException("Wrong id format!");
+    }
+
+    public void validateId(String strId) throws WrongIdFormatException {
+
+        if(strId.matches("[1-9]+")) {
+            id = Long.parseLong(strId);
             return;
         }
 
+        throw new WrongIdFormatException("Wrong id format!");
+    }
+
+    public void inputDragonName() {
         System.out.print("Enter the name: ");
         dragName = sc.nextLine();
         while (dragName.equals("") || dragName.equals("\s")) {
             System.out.println("Wrong name! Try again: ");
             dragName = sc.nextLine();
         }
-
-        System.out.print("Enter the X coordinate: ");
-        try {
-            cordX = sc.nextLong();
-            sc.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Wrong coordinate! Try again: ");
-            sc.nextLine();
-        }
-        System.out.print("Enter the Y coordinate: ");
-
-
-
-        System.out.print("Enter the dragon's age: ");
-        System.out.print("Enter the dragon's description: ");
-        System.out.print("Enter the dragon's wingspan: ");
-        System.out.print("Enter the dragon's type: (AIR, UNDERGROUND, FIRE, WATER) ");
-        System.out.print("Enter the killer's name: ");
-        System.out.print("Enter the killer's birthday: (YYYY-MM-DD hh-mm-ss) ");
-        System.out.print("Enter the killer's hair color: (WHITE, RED, ORANGE, YELLOW, GREEN, BLACK) ");
-        System.out.print("Enter the killer's nationality: (ITALY, NORTH_KOREA, USA, INDIA, VATICAN) ");
-        System.out.print("Enter the killer's X location: ");
-        System.out.print("Enter the killer's Y location: ");
-        System.out.print("Enter the killer's Z location: ");
-
-
     }
 
-    public void removeById() {
-        long id = 0;
-        try {
-            id = sc.nextLong();
-        } catch (InputMismatchException e) {
-            System.out.println("Wrong id format!");
-            sc.nextLine();
+    public void inputXCord() {
+        System.out.print("Enter the X coordinate: ");
+        while(true) {
+            if (sc.hasNextLong()) {
+                cordX = sc.nextLong();
+                if (sc.nextLine().equals("") && cordX <= 302) break;
+            }
+            else {
+                sc.nextLine();
+            }
+            System.out.print("Wrong coordinate! Try again: ");
         }
+    }
 
-        if (id < 0) {
-            System.out.println("Wrong id format!");
+    public void inputYCord() {
+        System.out.print("Enter the Y coordinate: ");
+        while(true) {
+            if (sc.hasNextFloat()) {
+                cordY = sc.nextFloat();
+                if (sc.nextLine().equals("")) break;
+            }
+            else {
+                sc.nextLine();
+            }
+            System.out.print("Wrong coordinate! Try again: ");
+        }
+    }
+
+    public void inputAge() {
+        String temp;
+        System.out.print("Enter the dragon's age: ");
+        while(true) {
+            temp = sc.nextLine();
+            if (temp.matches("[1-9]\\d*")) {
+                dragAge = Integer.parseInt(temp);
+                break;
+            }
+            System.out.print("Wrong age format! Try again: ");
+        }
+    }
+
+    public void inputDescription() {
+        System.out.print("Enter the dragon's description: ");
+        description = sc.nextLine();
+        if (description.equals(""))
+            description = null;
+    }
+
+    public void inputWingspan() {
+        String temp;
+
+        System.out.print("Enter the dragon's wingspan: ");
+        while(true) {
+            temp = sc.nextLine();
+            if (temp.matches("\\d*")) {
+                if (temp.equals(""))
+                    wingspan = null;
+                else
+                    wingspan = Long.parseLong(temp);
+                break;
+            }
+
+            System.out.print("Wrong wingspan! Try again: ");
+        }
+    }
+
+    public void inputType() {
+        String temp;
+
+        System.out.print("Enter the dragon's type: (AIR, UNDERGROUND, FIRE, WATER) ");
+        while(true) {
+            temp = sc.nextLine();
+            if (temp.toUpperCase().matches("AIR|UNDERGROUND|FIRE|WATER")) {
+                type = DragonType.valueOf(temp.toUpperCase());
+                break;
+            }
+            System.out.print("Wrong type format! Try again:");
+        }
+    }
+
+    public void inputKillerName() {
+        System.out.print("Enter the killer's name: ");
+        personName = sc.nextLine();
+        while (dragName.equals("") || dragName.equals("\s")) {
+            System.out.println("Wrong name! Try again: ");
+            dragName = sc.nextLine();
+        }
+    }
+
+    public void inputKilBirthday() {
+        System.out.print("Enter the killer's birthday: (YYYY-MM-DD hh-mm-ss) ");
+        while(true) {
+            date = sc.nextLine();
+            if (date.matches("\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) " +
+                    "(0[0-9]|1[0-9]|2[0-4]):([0-5]\\d):([0-5]\\d)"))
+                break;
+            System.out.print("Try again: ");
+        }
+    }
+
+    public void inputKilEyeColor() {
+        String temp;
+        System.out.print("Enter the killer's eye color: (WHITE, RED, ORANGE, YELLOW, GREEN, BLACK) ");
+        while(true) {
+            temp = sc.nextLine();
+            if (temp.toUpperCase().matches("WHITE|RED|ORANGE|YELLOW|GREEN|BLACK")) {
+                eye = Color.valueOf(temp.toUpperCase());
+                break;
+            }
+            System.out.print("Try again: ");
+        }
+    }
+
+    public void inputKilHairColor() {
+        String temp;
+        System.out.print("Enter the killer's hair color: (WHITE, RED, ORANGE, YELLOW, GREEN, BLACK) ");
+        while(true) {
+            temp = sc.nextLine();
+            if (temp.toUpperCase().matches("WHITE|RED|ORANGE|YELLOW|GREEN|BLACK")) {
+                hair = Color.valueOf(temp.toUpperCase());
+                break;
+            }
+            System.out.print("Try again: ");
+        }
+    }
+
+    private void inputKilZLoc() {
+        System.out.print("Enter the killer's Z location: ");
+        while(true) {
+            if (sc.hasNextInt()) {
+                locZ = sc.nextInt();
+                if (sc.nextLine().equals("")) break;
+            }
+            else
+                sc.nextLine();
+            System.out.print("Wrong coordinate! Try again: ");
+        }
+    }
+
+    private void inputKilYLoc() {
+        System.out.print("Enter the killer's Y location: ");
+        while(true) {
+            if(sc.hasNextLong()) {
+                locY = sc.nextLong();
+                if (sc.nextLine().equals("")) break;
+            }
+            else
+                sc.nextLine();
+
+            System.out.print("Wrong wingspan! Try again: ");
+        }
+    }
+
+    private void inputKilXLoc() {
+        System.out.print("Enter the killer's X location: ");
+        while(true) {
+            if (sc.hasNextInt()) {
+                locX = sc.nextInt();
+                if (sc.nextLine().equals("")) break;
+            }
+            else {
+                sc.nextLine();
+            }
+            System.out.print("Wrong coordinate! Try again: ");
+        }
+    }
+
+    private void inputKilNation() {
+        String temp;
+        System.out.print("Enter the killer's nationality: (ITALY, NORTH_KOREA, USA, INDIA, VATICAN) ");
+        while(true) {
+            temp = sc.nextLine();
+            if (temp.toUpperCase().matches("ITALY|USA|VATICAN|NORTH|KOREA|INDIA")) {
+                nation = Country.valueOf(temp.toUpperCase());
+                break;
+            }
+            System.out.print("Try again: ");
+        }
+    }
+
+    public Person inputKiller() {
+
+        inputKillerName();
+        inputKilBirthday();
+        inputKilEyeColor();
+        inputKilHairColor();
+        inputKilNation();
+        inputKilXLoc();
+        inputKilYLoc();
+        inputKilZLoc();
+
+        return new Person(personName, date, eye, hair, nation, new Location(locX, locY, locZ));
+    }
+
+    public boolean needKiller() {
+        String ans;
+        System.out.print("Is there a killer? (y/n) ");
+        while(true) {
+            ans = sc.nextLine();
+            if (ans.matches("y|n"))
+                switch(ans) {
+                    case "y": return true;
+                    case "n": return false;
+                }
+            System.out.print("Wrong answer format! ");
+        }
+    }
+
+    public void updateId(String strId) {
+
+        if (!removeById(strId))
             return;
-        }
 
+
+        inputDragonName();
+        inputXCord();
+        inputYCord();
+        inputAge();
+        inputDescription();
+        inputWingspan();
+        inputType();
+
+
+        Dragon dragon;
+        Person killer = null;
+
+        if (needKiller())
+            killer = inputKiller();
+
+        dragon = new Dragon(dragName, new Coordinates(cordX, cordY), dragAge, description, wingspan, type, killer);
+        dragon.setId(id);
+        arr.add(dragon);
+    }
+
+    public boolean removeById(String strId){
+        try {
+            validateId(strId);
+            removeFromQueue(id);
+        } catch (IdException e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
+    }
+
+    public void removeFromQueue(Long ident) throws NoSuchIdException{
         for (Dragon i : arr) {
-            if (i.getId() == id)
+            if (i.getId().equals(ident)) {
                 arr.remove(i);
+                return;
+            }
         }
 
+        throw new NoSuchIdException("There is no Dragon with such id in this collection");
     }
 
     public void clear() {
@@ -150,7 +356,7 @@ public class Processor {
 
     }
 
-    public void executeScript() {
+    public void executeScript(String scriptPath) {
 
     }
 
@@ -182,7 +388,7 @@ public class Processor {
 
     }
 
-    public void huy(String path) {
+    public void parseFrom(String path) {
         Parser pars = new Parser();
         ArrayList<String> fileLines;
 
@@ -236,17 +442,20 @@ public class Processor {
         String command;
         do {
             System.out.print("Input a command: ");
-            command = sc.next();
-            switch (command) {
+            String[] input = sc.nextLine().split(" ");
+            command = input[0];
+
+            if (input.length > 2) {
+                System.out.println("Wrong command format! Try again");
+                continue;
+            }
+            switch(command) {
                 case "help": help(); break;
                 case "info": inform(); break;
                 case "show": show(); break;
                 case "add": add(); break;
-                case "update": updateId(); break;
-                case "remove_by_id": removeById(); break;
                 case "clear": clear(); break;
                 case "save": save(); break;
-                case "execute_script": executeScript(); break;
                 case "exit": exit(); break;
                 case "remove_first": removeFirst(); break;
                 case "remove_greater": removeGreater(); break;
@@ -254,9 +463,11 @@ public class Processor {
                 case "remove_any_by_killer": removeAnyByKiller(); break;
                 case "print_descending": printDescending(); break;
                 case "print_field_descending": printFieldDescendingAge(); break;
+                case "update": updateId(input[1]); break;
+                case "remove_by_id": removeById(input[1]); break;
+                case "execute_script": executeScript(input[1]); break;
                 default:
                     System.out.println("Wrong command! Try again");
-                    sc.nextLine();
             }
 
         } while(!command.equals("exit"));
@@ -274,13 +485,8 @@ public class Processor {
 
 
         Processor proc = new Processor();
-        proc.huy("src\\bank.csv");
-//        proc.defineCommand();
-
-        for (Dragon i : proc.getArr()) {
-            System.out.println(i);
-        }
-
+        proc.parseFrom("Files\\bank.csv");
+        proc.defineCommand();
 
     }
 }

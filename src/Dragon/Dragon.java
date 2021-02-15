@@ -79,6 +79,10 @@ public class Dragon{
         return name;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     private ZonedDateTime defineDateTime(String dt) {
         return ZonedDateTime.parse(dt.replace(" +", "+").replace(" -", "-")
                 .replace(" ", "T"));
