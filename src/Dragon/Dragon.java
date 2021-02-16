@@ -14,6 +14,8 @@ public class Dragon{
     private DragonType type; //Поле может быть null
     private Person killer; //Поле может быть null
 
+    private static Long nextDragonId = 1L;
+
 
     //From file
     public Dragon(Long id, String name, Coordinates coordinates, String creationTime, int age, String description,
@@ -27,11 +29,14 @@ public class Dragon{
         this.wingspan = wingspan;
         this.type = type;
         this.killer = killer;
+        if (id >= nextDragonId)
+            nextDragonId = id + 1;
     }
 
     //Manually
     public Dragon(String name, Coordinates coordinates, int age, String description,
                   Long wingspan, DragonType type, Person killer) {
+        this.id = nextDragonId++;
         this.name = name;
         this.coordinates = coordinates;
         this.age = age;

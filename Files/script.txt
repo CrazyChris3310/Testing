@@ -1,0 +1,13 @@
+show
+print_descending
+show
+add
+Viktor
+24
+12,5
+18
+Blank space
+145
+fire
+n
+show

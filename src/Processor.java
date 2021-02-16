@@ -539,11 +539,14 @@ public class Processor {
                     case 16: locZ = cond ? 0 : Long.parseLong(text); break;
                 }
             }
+            Person killer;
             if (personName == null)
-                arr.add(new Dragon(id, dragName, new Coordinates(cordX, cordY), creationTime, dragAge, description, wingspan, type, null));
+                killer = null;
             else
-                arr.add(new Dragon(id, dragName, new Coordinates(cordX, cordY),creationTime, dragAge, description, wingspan, type,
-                        new Person(personName, date, eye, hair, nation, new Location(locX, locY, locZ))));
+                killer = new Person(personName, date, eye, hair, nation, new Location(locX, locY, locZ));
+
+            arr.add(new Dragon(id, dragName, new Coordinates(cordX, cordY),creationTime, dragAge, description, wingspan,
+                    type, killer));
         }
     }
 
