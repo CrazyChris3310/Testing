@@ -88,7 +88,6 @@ public class Dragon{
                 .replace(" ", "T"));
     }
 
-
     @Override
     public String toString() {
         return "Dragon{" +

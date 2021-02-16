@@ -101,6 +101,11 @@ public class Processor {
     }
 
     public void add() {
+        Dragon dragon = inputDragon();
+        arr.add(dragon);
+    }
+
+    public Dragon inputDragon() {
         inputDragonName();
         inputXCord();
         inputYCord();
@@ -114,8 +119,7 @@ public class Processor {
             killer = inputKiller();
         }
 
-        Dragon dragon = new Dragon(dragName, new Coordinates(cordX, cordY), dragAge, description, wingspan, type, killer);
-        arr.add(dragon);
+        return new Dragon(dragName, new Coordinates(cordX, cordY), dragAge, description, wingspan, type, killer);
     }
 
 
@@ -132,7 +136,7 @@ public class Processor {
         throw new WrongIdFormatException("Wrong id format!");
     }
 
-    public void validateId(String strId) throws WrongIdFormatException {
+    private void validateId(String strId) throws WrongIdFormatException {
 
         if(strId.matches("[1-9]+")) {
             id = Long.parseLong(strId);
@@ -364,23 +368,8 @@ public class Processor {
         if (!removeById(strId))
             return;
 
+        Dragon dragon = inputDragon();
 
-        inputDragonName();
-        inputXCord();
-        inputYCord();
-        inputAge();
-        inputDescription();
-        inputWingspan();
-        inputType();
-
-
-        Dragon dragon;
-        Person killer = null;
-
-        if (needKiller())
-            killer = inputKiller();
-
-        dragon = new Dragon(dragName, new Coordinates(cordX, cordY), dragAge, description, wingspan, type, killer);
         dragon.setId(id);
         arr.add(dragon);
     }
@@ -464,7 +453,8 @@ public class Processor {
     }
 
     public void removeGreater() {
-
+        Dragon dragon = inputDragon();
+        arr.removeIf(drag -> drag.getName().compareTo(dragon.getName()) > 0);
     }
 
     public void showHistory() {
