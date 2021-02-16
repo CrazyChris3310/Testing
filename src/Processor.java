@@ -8,6 +8,7 @@ import java.util.*;
 public class Processor {
 
     PriorityQueue<Dragon> arr;
+    LinkedList<String> history;
 
     private Long id;
     private String dragName;
@@ -51,6 +52,8 @@ public class Processor {
                 return o1.getName().compareTo(o2.getName());
             }
         });
+
+        history = new LinkedList<>();
 
         id = 0L;
         dragName = null;
@@ -464,8 +467,18 @@ public class Processor {
 
     }
 
-    public void history() {
+    public void showHistory() {
+        if (history.size() == 0) {
+            System.out.println("History is empty");
+            return;
+        }
+        history.forEach(System.out::println);
+    }
 
+    private void updateHistory(String command) {
+        if (history.size() == 15)
+            history.removeFirst();
+        history.add(command);
     }
 
     public void removeAnyByKiller() {
@@ -565,7 +578,7 @@ public class Processor {
                 case "exit": exit(); break;
                 case "remove_first": removeFirst(); break;
                 case "remove_greater": removeGreater(); break;
-                case "history": history(); break;
+                case "history": showHistory(); break;
                 case "remove_any_by_killer": removeAnyByKiller(); break;
                 case "print_descending": printDescending(); break;
                 case "print_field_descending_age": printFieldDescendingAge(); break;
@@ -573,10 +586,12 @@ public class Processor {
                 case "remove_by_id": removeById(input[1]); break;
                 case "execute_script": executeScript(input[1]); break;
                 case "":
-                    System.out.println("No command found! Try again"); break;
+                    System.out.println("No command found! Try again"); continue;
                 default:
-                    System.out.println("Wrong command! Try again");
+                    System.out.println("Wrong command! Try again"); continue;
             }
+
+            updateHistory(command);
 
         } while(!command.equals("exit"));
     }
