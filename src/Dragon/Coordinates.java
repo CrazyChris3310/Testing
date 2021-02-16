@@ -9,6 +9,14 @@ public class Coordinates {
         this.y = y;
     }
 
+    public Long getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
     @Override
     public String toString() {
         return "Coordinates{" +

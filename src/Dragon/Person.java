@@ -47,6 +47,30 @@ public class Person {
         this.location = location;
     }
 
+    public LocalDateTime getBirthday() {
+        return birthday;
+    }
+
+    public Country getNationality() {
+        return nationality;
+    }
+
+    public Color getHairColor() {
+        return hairColor;
+    }
+
+    public Color getEyeColor() {
+        return eyeColor;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
     @Override
     public String toString() {
         return "Person{" +

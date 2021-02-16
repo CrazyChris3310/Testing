@@ -59,6 +59,26 @@ public class Dragon{
         return name;
     }
 
+    public ZonedDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public DragonType getType() {
+        return type;
+    }
+
+    public Long getWingspan() {
+        return wingspan;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

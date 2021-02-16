@@ -12,6 +12,18 @@ public class Location {
         this.z = z;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public Long getY() {
+        return y;
+    }
+
+    public long getZ() {
+        return z;
+    }
+
     @Override
     public String toString() {
         return "Location{" +

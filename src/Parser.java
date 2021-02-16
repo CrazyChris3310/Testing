@@ -15,9 +15,7 @@ public class Parser {
         String text = "";
         do {
             c = isr.read();
-            if ((char) c == '\n')
-                break;
-            if ((char) c == '\r') {
+            if ((char) c == '\n') {
                 fileLines.add(text);
                 text = "";
                 continue;

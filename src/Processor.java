@@ -408,11 +408,41 @@ public class Processor {
         arr.clear();
     }
 
+    private <T> String defineNull(T value) {
+        if (value == null) {
+            return "";
+        }
+        return value.toString();
+    }
+
     public void save() {
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path));
+
+        DateTimeFormatter zdtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss xxxxx");
+        DateTimeFormatter ldtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+
+        String output;
+        try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path))) {
+            for (Dragon dragon : arr) {
+                output = "" + dragon.getId() + "," + dragon.getName() + "," + dragon.getCoordinates().getX() + "," +
+                        dragon.getCoordinates().getY() + "," + zdtFormatter.format(dragon.getCreationDate()) + "," +
+                        dragon.getAge() + "," + defineNull(dragon.getDescription()) + "," + defineNull(dragon.getWingspan()) +
+                        "," + defineNull(dragon.getType()) + ",";
+                if (dragon.getKiller() == null)
+                    output += ",,,,,,,\n";
+                else
+                    output += dragon.getKiller().getName() + "," + ldtFormatter.format(dragon.getKiller().getBirthday()) +
+                            "," + dragon.getKiller().getEyeColor() + "," + dragon.getKiller().getHairColor() +
+                            "," + dragon.getKiller().getNationality() + "," + dragon.getKiller().getLocation().getX() +
+                            "," + dragon.getKiller().getLocation().getY() + "," + dragon.getKiller().getLocation().getZ() + "\n";
+
+                bos.write(output.getBytes());
+                bos.flush();
+
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!)");
         } catch (IOException e) {
-            System.out.println("File not found!");
+            System.out.println("Writing error");
         }
 
 
@@ -542,6 +572,8 @@ public class Processor {
                 case "update": updateId(input[1]); break;
                 case "remove_by_id": removeById(input[1]); break;
                 case "execute_script": executeScript(input[1]); break;
+                case "":
+                    System.out.println("No command found! Try again"); break;
                 default:
                     System.out.println("Wrong command! Try again");
             }
@@ -558,10 +590,11 @@ public class Processor {
 //            System.out.println("Wrong files");
 //            return;
 //        }
+        String path = "Files\\output.csv";
 
 
-        Processor proc = new Processor("Files\\bank.csv");
-        proc.parseFrom("Files\\bank.csv");
+        Processor proc = new Processor(path);
+        proc.parseFrom(path);
         proc.defineCommand();
 
     }
