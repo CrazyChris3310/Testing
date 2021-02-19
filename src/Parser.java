@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,7 +7,7 @@ import java.util.ArrayList;
 public class Parser {
 
     //Расинг CSV файла по указанному пути и получение продуктов из него
-    public ArrayList<String> parseFromFile(String filePath) throws IOException {
+    public ArrayList<String> parseFromFile(File filePath) throws IOException {
         //Загружаем строки из файла
 
         ArrayList<String> fileLines = new ArrayList<String>();

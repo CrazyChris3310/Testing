@@ -1,6 +1,7 @@
 import Dragon.*;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -37,13 +38,15 @@ public class Processor {
     private Long locY;
     private long locZ;
 
-    private Scanner sc;
+    //private Scanner sc;
 
     private final LocalDateTime initDate;
 
-    private String path;
+    private File path;
 
-    Processor(String path) {
+    Input input;
+
+    Processor(File path) {
         this.path = path;
 
         arr = new PriorityQueue<>(new Comparator<Dragon>() {
@@ -78,9 +81,11 @@ public class Processor {
         locY = null;
         locZ = 0;
 
-        sc = new Scanner(System.in);
+        //sc = new Scanner(System.in);
 
         initDate = LocalDateTime.now();
+
+        input = new ConsoleInput();
 
     }
 
@@ -94,6 +99,23 @@ public class Processor {
 
     public void help() {
 
+        System.out.println("help - show information for available commands");
+        System.out.println("info - show information about collection");
+        System.out.println("show - show all the elements of collection");
+        System.out.println("add {element} - add new element to collection");
+        System.out.println("update id {element} - update the element with given id");
+        System.out.println("remove_by_id id - remove element with given id");
+        System.out.println("clear - remove everything from collection");
+        System.out.println("save - save collection to the file");
+        System.out.println("execute_script file_name - read and execute script from given file");
+        System.out.println("exit - stop the program without saving");
+        System.out.println("remove_first - remove the first element from collection");
+        System.out.println("remove_greater {element} - remove all elements, that are greater then given element");
+        System.out.println("history - show last 14 commands");
+        System.out.println("remove_any_by_killer killer - remove from collection one element with given killer");
+        System.out.println("print_descending - show elements in descending order");
+        System.out.println("print_field_descending_age - show the age of each element in descending order");
+
     }
 
     public void show() {
@@ -101,43 +123,34 @@ public class Processor {
     }
 
     public void add() {
-        Dragon dragon = inputDragon();
-        arr.add(dragon);
+        try {
+            Dragon dragon = inputDragon();
+            arr.add(dragon);
+        } catch (WrongInputFormatException e) {
+            System.out.println("Wrong Data given!");
+        }
     }
 
-    public Dragon inputDragon() {
-        inputDragonName();
-        inputXCord();
-        inputYCord();
-        inputAge();
-        inputDescription();
-        inputWingspan();
-        inputType();
-
+    public Dragon inputDragon() throws WrongInputFormatException{
         Person killer = null;
-        if (needKiller()) {
+
+        dragName = input.inputDragonName();
+        cordX = input.inputXCord();
+        cordY = input.inputYCord();
+        dragAge = input.inputAge();
+        description = input.inputDescription();
+        wingspan = input.inputWingspan();
+        type = input.inputType();
+
+        if (input.needKiller()) {
             killer = inputKiller();
         }
+
 
         return new Dragon(dragName, new Coordinates(cordX, cordY), dragAge, description, wingspan, type, killer);
     }
 
-
-    public void inputId() throws WrongIdFormatException{
-        if (sc.hasNextLong()) {
-            id = sc.nextLong();
-            if (sc.nextLine().equals("") && id > 0) {
-                return;
-            }
-        }
-        else
-            sc.nextLine();
-
-        throw new WrongIdFormatException("Wrong id format!");
-    }
-
     private void validateId(String strId) throws WrongIdFormatException {
-
         if(strId.matches("[1-9]+")) {
             id = Long.parseLong(strId);
             return;
@@ -146,221 +159,18 @@ public class Processor {
         throw new WrongIdFormatException("Wrong id format!");
     }
 
-    public void inputDragonName() {
-        System.out.print("Enter the name: ");
-        dragName = sc.nextLine();
-        while (dragName.equals("") || dragName.equals("\s")) {
-            System.out.println("Wrong name! Try again: ");
-            dragName = sc.nextLine();
-        }
-    }
+    public Person inputKiller() throws WrongInputFormatException{
 
-    public void inputXCord() {
-        System.out.print("Enter the X coordinate: ");
-        while(true) {
-            if (sc.hasNextLong()) {
-                cordX = sc.nextLong();
-                if (sc.nextLine().equals("") && cordX <= 302) break;
-            }
-            else {
-                sc.nextLine();
-            }
-            System.out.print("Wrong coordinate! Try again: ");
-        }
-    }
-
-    public void inputYCord() {
-        System.out.print("Enter the Y coordinate: ");
-        while(true) {
-            if (sc.hasNextFloat()) {
-                cordY = sc.nextFloat();
-                if (sc.nextLine().equals("")) break;
-            }
-            else {
-                sc.nextLine();
-            }
-            System.out.print("Wrong coordinate! Try again: ");
-        }
-    }
-
-    public void inputAge() {
-        String temp;
-        System.out.print("Enter the dragon's age: ");
-        while(true) {
-            temp = sc.nextLine();
-            if (temp.matches("[1-9]\\d*")) {
-                dragAge = Integer.parseInt(temp);
-                break;
-            }
-            System.out.print("Wrong age format! Try again: ");
-        }
-    }
-
-    public void inputDescription() {
-        System.out.print("Enter the dragon's description: ");
-        description = sc.nextLine();
-        if (description.equals(""))
-            description = null;
-    }
-
-    public void inputWingspan() {
-        String temp;
-
-        System.out.print("Enter the dragon's wingspan: ");
-        while(true) {
-            temp = sc.nextLine();
-            if (temp.matches("\\d*")) {
-                if (temp.equals(""))
-                    wingspan = null;
-                else
-                    wingspan = Long.parseLong(temp);
-                break;
-            }
-
-            System.out.print("Wrong wingspan! Try again: ");
-        }
-    }
-
-    public void inputType() {
-        String temp;
-
-        System.out.print("Enter the dragon's type: (AIR, UNDERGROUND, FIRE, WATER) ");
-        while(true) {
-            temp = sc.nextLine();
-            if (temp.toUpperCase().matches("AIR|UNDERGROUND|FIRE|WATER")) {
-                type = DragonType.valueOf(temp.toUpperCase());
-                break;
-            }
-            System.out.print("Wrong type format! Try again:");
-        }
-    }
-
-    public void inputKillerName() {
-        System.out.print("Enter the killer's name: ");
-        personName = sc.nextLine();
-        while (dragName.equals("") || dragName.equals("\s")) {
-            System.out.println("Wrong name! Try again: ");
-            dragName = sc.nextLine();
-        }
-    }
-
-    public void inputKilBirthday() {
-        System.out.print("Enter the killer's birthday: (YYYY-MM-DD hh-mm-ss) ");
-        while(true) {
-            date = sc.nextLine();
-            if (date.matches("\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) " +
-                    "(0[0-9]|1[0-9]|2[0-4]):([0-5]\\d):([0-5]\\d)"))
-                break;
-            System.out.print("Try again: ");
-        }
-    }
-
-    public void inputKilEyeColor() {
-        String temp;
-        System.out.print("Enter the killer's eye color: (WHITE, RED, ORANGE, YELLOW, GREEN, BLACK) ");
-        while(true) {
-            temp = sc.nextLine();
-            if (temp.toUpperCase().matches("WHITE|RED|ORANGE|YELLOW|GREEN|BLACK")) {
-                eye = Color.valueOf(temp.toUpperCase());
-                break;
-            }
-            System.out.print("Try again: ");
-        }
-    }
-
-    public void inputKilHairColor() {
-        String temp;
-        System.out.print("Enter the killer's hair color: (WHITE, RED, ORANGE, YELLOW, GREEN, BLACK) ");
-        while(true) {
-            temp = sc.nextLine();
-            if (temp.toUpperCase().matches("WHITE|RED|ORANGE|YELLOW|GREEN|BLACK")) {
-                hair = Color.valueOf(temp.toUpperCase());
-                break;
-            }
-            System.out.print("Try again: ");
-        }
-    }
-
-    private void inputKilZLoc() {
-        System.out.print("Enter the killer's Z location: ");
-        while(true) {
-            if (sc.hasNextInt()) {
-                locZ = sc.nextInt();
-                if (sc.nextLine().equals("")) break;
-            }
-            else
-                sc.nextLine();
-            System.out.print("Wrong coordinate! Try again: ");
-        }
-    }
-
-    private void inputKilYLoc() {
-        System.out.print("Enter the killer's Y location: ");
-        while(true) {
-            if(sc.hasNextLong()) {
-                locY = sc.nextLong();
-                if (sc.nextLine().equals("")) break;
-            }
-            else
-                sc.nextLine();
-
-            System.out.print("Wrong wingspan! Try again: ");
-        }
-    }
-
-    private void inputKilXLoc() {
-        System.out.print("Enter the killer's X location: ");
-        while(true) {
-            if (sc.hasNextInt()) {
-                locX = sc.nextInt();
-                if (sc.nextLine().equals("")) break;
-            }
-            else {
-                sc.nextLine();
-            }
-            System.out.print("Wrong coordinate! Try again: ");
-        }
-    }
-
-    private void inputKilNation() {
-        String temp;
-        System.out.print("Enter the killer's nationality: (ITALY, NORTH_KOREA, USA, INDIA, VATICAN) ");
-        while(true) {
-            temp = sc.nextLine();
-            if (temp.toUpperCase().matches("ITALY|USA|VATICAN|NORTH|KOREA|INDIA")) {
-                nation = Country.valueOf(temp.toUpperCase());
-                break;
-            }
-            System.out.print("Try again: ");
-        }
-    }
-
-    public Person inputKiller() {
-
-        inputKillerName();
-        inputKilBirthday();
-        inputKilEyeColor();
-        inputKilHairColor();
-        inputKilNation();
-        inputKilXLoc();
-        inputKilYLoc();
-        inputKilZLoc();
+        input.inputKillerName();
+        input.inputKilBirthday();
+        input.inputKilEyeColor();
+        input.inputKilHairColor();
+        input.inputKilNation();
+        input.inputKilXLoc();
+        input.inputKilYLoc();
+        input.inputKilZLoc();
 
         return new Person(personName, date, eye, hair, nation, new Location(locX, locY, locZ));
-    }
-
-    public boolean needKiller() {
-        String ans;
-        System.out.print("Is there a killer? (y/n) ");
-        while(true) {
-            ans = sc.nextLine();
-            if (ans.matches("y|n"))
-                switch(ans) {
-                    case "y": return true;
-                    case "n": return false;
-                }
-            System.out.print("Wrong answer format! ");
-        }
     }
 
     public void updateId(String strId) {
@@ -368,10 +178,13 @@ public class Processor {
         if (!removeById(strId))
             return;
 
-        Dragon dragon = inputDragon();
-
-        dragon.setId(id);
-        arr.add(dragon);
+        try {
+            Dragon dragon = inputDragon();
+            dragon.setId(id);
+            arr.add(dragon);
+        } catch (WrongInputFormatException e) {
+            System.out.println("Wrong Data given!");
+        }
     }
 
     public boolean removeById(String strId){
@@ -440,12 +253,60 @@ public class Processor {
 
     }
 
-    public void executeScript(String scriptPath) {
+    public void exit() {
 
     }
 
-    public void exit() {
+    public void executeScript(String script) {
+        try {
+            input = new FileInput(script);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+            return;
+        }
 
+        defineFileCommand();
+
+        input = new ConsoleInput();
+
+    }
+
+    // REWRITE
+    public void defineFileCommand() {
+        String command;
+        while (input.hasNext()) {
+            String[] text = input.nextLine().split(" ");
+            command = text[0];
+
+            if (text.length > 2) {
+                System.out.println("Wrong command format!");
+                continue;
+            }
+            switch(command) {
+                case "help": help(); break;
+                case "info": inform(); break;
+                case "show": show(); break;
+                case "add": add(); break;
+                case "clear": clear(); break;
+                case "save": save(); break;
+                case "exit": exit(); break;
+                case "remove_first": removeFirst(); break;
+                case "remove_greater": removeGreater(); break;
+                case "history": showHistory(); break;
+                case "remove_any_by_killer": removeAnyByKiller(); break;
+                case "print_descending": printDescending(); break;
+                case "print_field_descending_age": printFieldDescendingAge(); break;
+                case "update": updateId(text[1]); break;
+                case "remove_by_id": removeById(text[1]); break;
+                case "execute_script": executeScript(text[1]); break;
+                case "":
+                    System.out.println("No command found!");
+                default:
+                    System.out.println("Wrong command!");
+            }
+
+            System.out.println();
+        }
     }
 
     public void removeFirst() {
@@ -453,8 +314,12 @@ public class Processor {
     }
 
     public void removeGreater() {
-        Dragon dragon = inputDragon();
-        arr.removeIf(drag -> drag.getName().compareTo(dragon.getName()) > 0);
+        try {
+            Dragon dragon = inputDragon();
+            arr.removeIf(drag -> drag.getName().compareTo(dragon.getName()) > 0);
+        } catch (WrongInputFormatException e) {
+            System.out.println("Wrong Data given");
+        }
     }
 
     public void showHistory() {
@@ -473,7 +338,13 @@ public class Processor {
 
     public void removeAnyByKiller() {
 
-        Person killer = inputKiller();
+        Person killer;
+        try {
+            killer = inputKiller();
+        } catch (WrongInputFormatException e) {
+            System.out.println("Wrong data!");
+            return;
+        }
 
         for (Dragon dragon : arr) {
             if (dragon.getKiller().equals(killer)) {
@@ -497,7 +368,7 @@ public class Processor {
         }
     }
 
-    public void parseFrom(String path) {
+    public void parseFrom(File path) {
         Parser pars = new Parser();
         ArrayList<String> fileLines;
 
@@ -554,10 +425,10 @@ public class Processor {
         String command;
         do {
             System.out.print("Input a command: ");
-            String[] input = sc.nextLine().split(" ");
-            command = input[0];
+            String[] text = input.nextLine().split(" ");
+            command = text[0];
 
-            if (input.length > 2) {
+            if (text.length > 2) {
                 System.out.println("Wrong command format! Try again");
                 continue;
             }
@@ -575,9 +446,9 @@ public class Processor {
                 case "remove_any_by_killer": removeAnyByKiller(); break;
                 case "print_descending": printDescending(); break;
                 case "print_field_descending_age": printFieldDescendingAge(); break;
-                case "update": updateId(input[1]); break;
-                case "remove_by_id": removeById(input[1]); break;
-                case "execute_script": executeScript(input[1]); break;
+                case "update": updateId(text[1]); break;
+                case "remove_by_id": removeById(text[1]); break;
+                case "execute_script": executeScript(text[1]); break;
                 case "":
                     System.out.println("No command found! Try again"); continue;
                 default:
@@ -594,12 +465,15 @@ public class Processor {
     }
 
     public static void main(String[] args) {
-//        if (args.length != 1) {
-//            System.out.println("Wrong files");
-//            return;
-//        }
-        String path = "Files\\output.csv";
-
+        if (args.length != 1) {
+            System.out.println("Wrong files");
+            return;
+        }
+        File path = new File(args[0]);
+        if (!path.exists()) {
+            System.out.println("File not found!");
+            return;
+        }
 
         Processor proc = new Processor(path);
         proc.parseFrom(path);

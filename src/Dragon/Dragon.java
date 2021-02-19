@@ -2,6 +2,7 @@ package Dragon;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Dragon{
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -95,16 +96,15 @@ public class Dragon{
 
     @Override
     public String toString() {
-        return "Dragon{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", age=" + age +
-                ", description='" + description + '\'' +
-                ", wingspan=" + wingspan +
-                ", type=" + type +
-                ", killer=" + killer +
-                '}';
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss xxxxx");
+        return  "id: " + id + "\n" +
+                "name: '" + name + "'\n" +
+                "coordinates: " + coordinates + "\n" +
+                "creationDate: " + fmt.format(creationDate) + "\n" +
+                "age: " + age + "\n" +
+                "description: '" + description + "'\n" +
+                "wingspan: " + wingspan + "\n" +
+                "type: " + type + "\n" +
+                "killer: " + killer + "\n";
     }
 }

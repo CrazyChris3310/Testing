@@ -1,5 +1,6 @@
 package Dragon;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -17,34 +18,6 @@ public class Person {
         hairColor = hair;
         nationality = country;
         location = loc;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBirthday(LocalDateTime birthday) {
-        this.birthday = birthday;
-    }
-
-    public void setBirthday(String birthday) {
-
-    }
-
-    public void setEyeColor(Color eyeColor) {
-        this.eyeColor = eyeColor;
-    }
-
-    public void setHairColor(Color hairColor) {
-        this.hairColor = hairColor;
-    }
-
-    public void setNationality(Country nationality) {
-        this.nationality = nationality;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public LocalDateTime getBirthday() {
@@ -73,13 +46,12 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", birthday=" + birthday +
-                ", eyeColor=" + eyeColor +
-                ", hairColor=" + hairColor +
-                ", nationality=" + nationality +
-                ", location=" + location +
-                '}';
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        return "name: '" + name + "'\n" +
+                "birthday: " + fmt.format(birthday) + "\n" +
+                "eyeColor: " + eyeColor + "\n" +
+                "hairColor: " + hairColor + "\n" +
+                "nationality: " + nationality + "\n" +
+                "location: " + location;
     }
 }

@@ -1,9 +1,4 @@
-import Dragon.Country;
-import Dragon.DragonType;
-
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.HashMap;
 
 public class Test {
 
@@ -11,14 +6,15 @@ public class Test {
         return 12345L;
     }
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
 
     }
 
-    public static void excep() throws WrongIdFormatException{
-        throw new WrongIdFormatException("Wrong id format!");
+    public void say(String c) {
+        System.out.println(c);
     }
 
+    public void printNum() {
+        System.out.println(Math.random() * 100);
+    }
 
 }

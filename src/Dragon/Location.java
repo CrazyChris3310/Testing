@@ -26,10 +26,6 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                '}';
+        return  String.format("x = %d, y = %d, z = %d", x, y, z);
     }
 }
