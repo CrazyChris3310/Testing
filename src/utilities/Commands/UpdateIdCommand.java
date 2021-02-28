@@ -6,12 +6,18 @@ import Exceptions.WrongInputFormatException;
 import Input.Input;
 import utilities.DragonCollection;
 
+/**
+ * Command "update".
+ */
 public class UpdateIdCommand extends Command{
 
     public UpdateIdCommand(DragonCollection collection, Input input) {
         super(collection, input);
     }
 
+    /**
+     * Method inputs id and then changes fields of dragon with given id to new ones.
+     */
     @Override
     public void execute() {
         Long id;

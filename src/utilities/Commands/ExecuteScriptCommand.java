@@ -8,6 +8,9 @@ import utilities.Process;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Command "ExecuteCommand". Executes script.
+ */
 public class ExecuteScriptCommand extends Command{
 
     private static int deepness = 0;
@@ -16,6 +19,9 @@ public class ExecuteScriptCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method inputs file path to script and executes it if it's valid.
+     */
     @Override
     public void execute() {
         String file;

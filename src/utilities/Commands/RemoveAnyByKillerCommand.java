@@ -7,6 +7,9 @@ import Exceptions.WrongInputFormatException;
 import Input.Input;
 import utilities.DragonCollection;
 
+/**
+ * Command "remove_any_by_killer".
+ */
 public class RemoveAnyByKillerCommand extends Command{
 
 
@@ -14,6 +17,9 @@ public class RemoveAnyByKillerCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method inputs killer and removes an element with the same killer from collection.
+     */
     @Override
     public void execute() {
         Person killer;

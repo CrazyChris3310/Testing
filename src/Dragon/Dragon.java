@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
- * Class {@code Dragon} defines a dragon with its caracteristics
+ * Class {@code Dragon} defines a dragon with its characteristics
  */
 public class Dragon{
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически

@@ -6,6 +6,9 @@ import utilities.DragonCollection;
 
 import java.util.ArrayList;
 
+/**
+ * Command "print_descending".
+ */
 public class PrintDescendingCommand extends Command{
 
 
@@ -13,6 +16,9 @@ public class PrintDescendingCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method prints elements of collection in descending order.
+     */
     @Override
     public void execute() {
         ArrayList<Dragon> temp = new ArrayList<>(drg.getCollection());

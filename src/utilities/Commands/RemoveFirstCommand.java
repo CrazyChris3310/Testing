@@ -3,6 +3,9 @@ package utilities.Commands;
 import Input.Input;
 import utilities.DragonCollection;
 
+/**
+ * Command "remove_first".
+ */
 public class RemoveFirstCommand extends Command{
 
 
@@ -10,6 +13,9 @@ public class RemoveFirstCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method removes first element from collection.
+     */
     @Override
     public void execute() {
         drg.removeFirst();

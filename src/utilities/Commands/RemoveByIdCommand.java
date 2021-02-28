@@ -4,6 +4,9 @@ import Exceptions.IdException;
 import Input.Input;
 import utilities.DragonCollection;
 
+/**
+ * Command "Remove_by_id".
+ */
 public class RemoveByIdCommand extends Command{
 
 
@@ -11,6 +14,9 @@ public class RemoveByIdCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method inputs id and removes an element with the same id from collection.
+     */
     @Override
     public void execute() {
         Long id;

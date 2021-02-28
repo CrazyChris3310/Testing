@@ -5,12 +5,21 @@ import Input.*;
 
 import java.util.HashMap;
 
+/**
+ * Class that is responsible for defining command and input source.
+ */
 public class Process {
 
     private DragonCollection dragons;
     private HashMap<String, Command> commands = new HashMap<>();
     Input input;
 
+    /**
+     * Constructs a {@code Process} with given collection and input source.
+     * Also defines all the commands available.
+     * @param drg
+     * @param source
+     */
     public Process(DragonCollection drg, Input source) {
         dragons = drg;
         input = source;
@@ -32,6 +41,9 @@ public class Process {
         commands.put("exit", new ExitCommand(dragons, input));
     }
 
+    /**
+     * Method defines commands from console input and executes them.
+     */
     public void defineCommand() {
         String command;
         do {
@@ -49,6 +61,9 @@ public class Process {
         } while(!command.equals("exit"));
     }
 
+    /**
+     * Method defines commands from file input and executes them.
+     */
     public void defineFileCommand() {
         String command;
         while (input.hasNext()) {

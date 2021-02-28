@@ -12,12 +12,19 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
+/**
+ * Class {@code DragonCollection} defines the collection and methods for managing it.
+ */
 public class DragonCollection {
     private PriorityQueue<Dragon> collection;
     private LinkedList<String> history;
     final private LocalDateTime initDate;
     private File path;
 
+    /**
+     * Constructs collection and fills it from given file.
+     * @param path path to file with collection.
+     */
     public DragonCollection(File path) {
         this.path = path;
         initDate = LocalDateTime.now();
@@ -26,6 +33,10 @@ public class DragonCollection {
         parseFrom(path);
     }
 
+    /**
+     * Method parses data from file into collection.
+     * @param path path where collection is stored.
+     */
     public void parseFrom(File path) {
         Parser pars = new Parser();
         ArrayList<String> fileLines;
@@ -89,10 +100,19 @@ public class DragonCollection {
         return collection;
     }
 
+    /**
+     * Inserts element into PriorityQueue.
+     * @param dragon element to insert.
+     */
     public void add(Dragon dragon) {
         collection.add(dragon);
     }
 
+    /**
+     * Removes element that id equals ident.
+     * @param ident id of element to delete.
+     * @throws NoSuchIdException if element with such id is not in collection.
+     */
     public void removeFromQueue(Long ident) throws NoSuchIdException {
         for (Dragon i : collection) {
             if (i.getId().equals(ident)) {
@@ -104,16 +124,26 @@ public class DragonCollection {
         throw new NoSuchIdException("There is no Dragon with such id in this collection");
     }
 
+    /**
+     * Removes all element from the collection.
+     */
     public void clear() {
         collection.clear();
     }
 
+    /**
+     * Method adds to history new command.
+     * @param command command to add in history.
+     */
     public void updateHistory(String command) {
         if (history.size() >= 14)
             history.removeFirst();
         history.add(command);
     }
 
+    /**
+     * Method prints history in console.
+     */
     public void showHistory() {
         if (history.size() == 0) {
             System.out.println("History is empty");
@@ -121,6 +151,11 @@ public class DragonCollection {
         history.forEach(System.out::println);
     }
 
+    /**
+     * Method removes element with the same killer as given.
+     * @param killer given killer.
+     * @throws NoSuchKillerException if element with such killer is not in collection.
+     */
     public void removeByKiller(Person killer) throws NoSuchKillerException{
         for (Dragon dragon : collection) {
             if (killer.equals(dragon.getKiller())) {
@@ -131,10 +166,17 @@ public class DragonCollection {
         throw new NoSuchKillerException();
     }
 
+    /**
+     * Removes first element in collection.
+     */
     public void removeFirst() {
         collection.poll();
     }
 
+    /**
+     * Removes all elements that are greater than given dragon.
+     * @param dragon dragon to be compared with.
+     */
     public void removeGreater(Dragon dragon) {
         collection.removeIf(drag -> drag.getName().compareTo(dragon.getName()) > 0);
     }

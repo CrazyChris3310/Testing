@@ -2,6 +2,9 @@ package utilities.Commands;
 import Input.*;
 import utilities.*;
 
+/**
+ * Root class for all commands. Contains source for input and the collection to work with.
+ */
 abstract public class Command {
 
     DragonCollection drg;

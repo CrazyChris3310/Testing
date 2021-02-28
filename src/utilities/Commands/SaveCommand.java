@@ -10,6 +10,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Command "save".
+ */
 public class SaveCommand extends Command{
 
 
@@ -17,6 +20,9 @@ public class SaveCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method writes elements of collection into file in csv format.
+     */
     @Override
     public void execute() {
         DateTimeFormatter zdtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss xxxxx");
@@ -49,6 +55,12 @@ public class SaveCommand extends Command{
 
     }
 
+    /**
+     * Method defines what to write to file if object is null.
+     * @param str given object.
+     * @param <T> type of given object.
+     * @return if str is null, then "", in other case str.
+     */
     public <T> String defineNull(T str) {
         if (str == null)
             return "";

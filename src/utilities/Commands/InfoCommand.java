@@ -5,6 +5,9 @@ import utilities.DragonCollection;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Command "info".
+ */
 public class InfoCommand extends Command{
 
 
@@ -12,6 +15,9 @@ public class InfoCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method shows information about collection.
+     */
     @Override
     public void execute() {
         System.out.println("Type of elements: Dragon");

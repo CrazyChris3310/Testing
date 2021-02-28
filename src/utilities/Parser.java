@@ -6,11 +6,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * Defines methods for parsing from csv files.
+ */
 public class Parser {
 
-    //Расинг CSV файла по указанному пути и получение продуктов из него
+    /**
+     * Method returns array. Each elements is one line from file.
+     * @param filePath file from where to parse.
+     * @return array of lines from file.
+     * @throws IOException if something went wrong.
+     */
     public ArrayList<String> parseFromFile(File filePath) throws IOException {
-        //Загружаем строки из файла
 
         ArrayList<String> fileLines = new ArrayList<String>();
         InputStreamReader isr = new InputStreamReader(new FileInputStream(filePath));
@@ -29,6 +36,11 @@ public class Parser {
         return fileLines;
     }
 
+    /**
+     * Divides fileLine on elements using comma as a delimiter.
+     * @param fileLine {@code String} containing values separated by comma.
+     * @return array of values from csv.
+     */
     public ArrayList<String> getItems(String fileLine) {
         String[] splitedText = fileLine.split(",", 18);
         ArrayList<String> columnList = new ArrayList<String>();
@@ -46,7 +58,11 @@ public class Parser {
 
     };
 
-    //Проверка является ли колонка частью предыдущей колонки
+    /**
+     * Checks if value is part of previous value.
+     * @param text value to check.
+     * @return true if text is part of previous value, false if not.
+     */
     private static boolean IsColumnPart(String text) {
         String trimText = text.trim();
         //Если в тексте одна ковычка и текст на нее заканчиваеться значит это часть предыдущей колонки

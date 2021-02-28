@@ -17,7 +17,10 @@ public class ConsoleInput extends Input{
     }
 
 
-
+    /**
+     * Method asks to input name of dragon.
+     * @return name of the dragon.
+     */
     @Override
     public String inputDragonName() {
         String dragName;
@@ -30,6 +33,10 @@ public class ConsoleInput extends Input{
         return dragName;
     }
 
+    /**
+     * Method asks to input X coordinate.
+     * @return dragon's X coordinate.
+     */
     public Long inputXCord() {
         long cordX;
         System.out.print("Enter the X coordinate: ");
@@ -46,6 +53,11 @@ public class ConsoleInput extends Input{
         return cordX;
     }
 
+    /**
+     * Method asks to input Y coordinate.
+     * @return dragon's Y coordinate.
+     */
+    @Override
     public float inputYCord() {
         float cordY;
         System.out.print("Enter the Y coordinate: ");
@@ -62,6 +74,10 @@ public class ConsoleInput extends Input{
         return cordY;
     }
 
+    /**
+     * Method asks to input dragon's age.
+     * @return age of the dragon.
+     */
     public int inputAge() {
         int dragAge;
         String temp;
@@ -77,6 +93,11 @@ public class ConsoleInput extends Input{
         return dragAge;
     }
 
+
+    /**
+     * Method asks to input dragon's description.
+     * @return description of the dragon.
+     */
     public String inputDescription() {
         String description;
         System.out.print("Enter the dragon's description: ");
@@ -86,6 +107,12 @@ public class ConsoleInput extends Input{
         return  description;
     }
 
+
+    /**
+     * Method asks to input dragon's wingspan.
+     * @return wingspan of the dragon.
+     */
+    @Override
     public Long inputWingspan() {
         String temp;
         Long wingspan;
@@ -106,6 +133,11 @@ public class ConsoleInput extends Input{
         return wingspan;
     }
 
+    /**
+     * Method asks to input dragon's type.
+     * @return type of dragon.
+     */
+    @Override
     public DragonType inputType() {
         String temp;
         DragonType type;
@@ -122,6 +154,11 @@ public class ConsoleInput extends Input{
         return type;
     }
 
+    /**
+     * Method asks to input name of a person who killed dragon.
+     * @return name of the killer.
+     */
+    @Override
     public String inputKillerName() {
         System.out.print("Enter the killer's name: ");
         String personName = sc.nextLine();
@@ -132,6 +169,11 @@ public class ConsoleInput extends Input{
         return personName;
     }
 
+    /**
+     * Method asks to input date of birth of dragon's killer.
+     * @return killer's birthday.
+     */
+    @Override
     public String inputKilBirthday() {
         System.out.print("Enter the killer's birthday: (YYYY-MM-DD hh:mm:ss) ");
         String date;
@@ -144,6 +186,11 @@ public class ConsoleInput extends Input{
         }
     }
 
+    /**
+     * Method asks to input killer's eye color.
+     * @return color of killer's eyes.
+     */
+    @Override
     public Color inputKilEyeColor() {
         String temp;
         System.out.print("Enter the killer's eye color: (WHITE, RED, ORANGE, YELLOW, GREEN, BLACK) ");
@@ -156,6 +203,11 @@ public class ConsoleInput extends Input{
         }
     }
 
+    /**
+     * Method asks to input killer's hair color.
+     * @return color of killer's hair.
+     */
+    @Override
     public Color inputKilHairColor() {
         String temp;
         System.out.print("Enter the killer's hair color: (WHITE, RED, ORANGE, YELLOW, GREEN, BLACK) ");
@@ -168,6 +220,11 @@ public class ConsoleInput extends Input{
         }
     }
 
+    /**
+     * Method asks to input Z location of killer.
+     * @return Z location.
+     */
+    @Override
     public long inputKilZLoc() {
         long locZ;
         System.out.print("Enter the killer's Z location: ");
@@ -183,6 +240,11 @@ public class ConsoleInput extends Input{
         return locZ;
     }
 
+    /**
+     * Method asks to input Y location of killer.
+     * @return Y location.
+     */
+    @Override
     public Long inputKilYLoc() {
         long locY;
         System.out.print("Enter the killer's Y location: ");
@@ -199,6 +261,11 @@ public class ConsoleInput extends Input{
         return locY;
     }
 
+    /**
+     * Method asks to input X location of killer.
+     * @return X location.
+     */
+    @Override
     public int inputKilXLoc() {
         int locX;
         System.out.print("Enter the killer's X location: ");
@@ -215,6 +282,11 @@ public class ConsoleInput extends Input{
         return locX;
     }
 
+    /**
+     * Method asks to input country where killer was born.
+     * @return killer's nation.
+     */
+    @Override
     public Country inputKilNation() {
         String temp;
         Country nation;
@@ -228,6 +300,11 @@ public class ConsoleInput extends Input{
         }
     }
 
+    /**
+     * Method asks whether user needs to input killer or not.
+     * @return true if killer defined, false in other case.
+     */
+    @Override
     public boolean needKiller() {
         String ans;
         System.out.print("Is there a killer? (y/n) ");

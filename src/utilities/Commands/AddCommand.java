@@ -5,6 +5,9 @@ import Exceptions.WrongInputFormatException;
 import Input.Input;
 import utilities.DragonCollection;
 
+/**
+ * Command "Add". Adds element to collection.
+ */
 public class AddCommand extends Command{
 
 
@@ -12,6 +15,9 @@ public class AddCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method inputs a dragon and adds it into collection.
+     */
     @Override
     public void execute() {
         try {

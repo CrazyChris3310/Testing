@@ -3,6 +3,9 @@ package utilities.Commands;
 import Input.Input;
 import utilities.DragonCollection;
 
+/**
+ * Command "help".
+ */
 public class HelpCommand extends Command{
 
 
@@ -10,6 +13,9 @@ public class HelpCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method shows information about all commands.
+     */
     @Override
     public void execute() {
         System.out.println("help - show information for available commands");

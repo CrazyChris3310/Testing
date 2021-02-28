@@ -6,6 +6,9 @@ import utilities.DragonCollection;
 
 import java.util.ArrayList;
 
+/**
+ * Command "print_field_descending_age".
+ */
 public class PrintFieldDescendingAgeCommand extends Command{
 
 
@@ -13,6 +16,9 @@ public class PrintFieldDescendingAgeCommand extends Command{
         super(collection, input);
     }
 
+    /**
+     * Method prints age field of each element in descending error.
+     */
     @Override
     public void execute() {
         ArrayList<Dragon> temp = new ArrayList<>(drg.getCollection());
