@@ -1,11 +1,10 @@
-import Dragon.Color;
-import Dragon.Country;
-import Dragon.DragonType;
+package Input;
+
+import Dragon.*;
+import Exceptions.WrongInputFormatException;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class FileInput extends Input {
@@ -14,24 +13,24 @@ public class FileInput extends Input {
         sc = new Scanner(new FileInputStream(path));
     }
 
-    public String inputDragonName() throws WrongInputFormatException{
+    public String inputDragonName() throws WrongInputFormatException {
         String dragName = sc.nextLine();
         if (dragName.equals("") || dragName.equals("\n"))
             throw new WrongInputFormatException();
         return dragName;
     }
 
-    public Long inputXCord() throws WrongInputFormatException{
+    public Long inputXCord() throws WrongInputFormatException {
         String temp = sc.nextLine();
         long cordX;
 
-        if (temp.matches("-[1-9]\\d*|0|[12]\\d{0,2}|30[012]"))
+        if (temp.matches("-[1-9]\\d*|0|[12]\\d{0,2}|3\\d?|30[012]"))
             return Long.parseLong(temp);
 
         throw new WrongInputFormatException();
     }
 
-    public float inputYCord() throws WrongInputFormatException{
+    public float inputYCord() throws WrongInputFormatException {
         float cordY;
 
         if (sc.hasNextFloat()) {
@@ -43,7 +42,7 @@ public class FileInput extends Input {
         throw new WrongInputFormatException();
     }
 
-    public int inputAge() throws WrongInputFormatException{
+    public int inputAge() throws WrongInputFormatException {
         int dragAge;
         String temp = sc.nextLine();
         if (temp.matches("[1-9]\\d*"))
@@ -60,7 +59,7 @@ public class FileInput extends Input {
         return  description;
     }
 
-    public Long inputWingspan() throws WrongInputFormatException{
+    public Long inputWingspan() throws WrongInputFormatException {
         String temp;
 
         temp = sc.nextLine();
@@ -74,7 +73,7 @@ public class FileInput extends Input {
         throw new WrongInputFormatException();
     }
 
-    public DragonType inputType() throws WrongInputFormatException{
+    public DragonType inputType() throws WrongInputFormatException {
         String temp = sc.nextLine();
         DragonType type;
 
@@ -84,14 +83,14 @@ public class FileInput extends Input {
         throw new WrongInputFormatException();
     }
 
-    public String inputKillerName() throws WrongInputFormatException{
+    public String inputKillerName() throws WrongInputFormatException {
         String personName = sc.nextLine();
         if (personName.equals("") || personName.equals("\n"))
             throw new WrongInputFormatException();
         return personName;
     }
 
-    public String inputKilBirthday() throws WrongInputFormatException{
+    public String inputKilBirthday() throws WrongInputFormatException {
         String date = sc.nextLine();
         if (date.matches("\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) " +
                 "(0[0-9]|1[0-9]|2[0-4]):([0-5]\\d):([0-5]\\d)"))
@@ -100,7 +99,7 @@ public class FileInput extends Input {
         throw new WrongInputFormatException();
     }
 
-    public Color inputKilEyeColor() throws WrongInputFormatException{
+    public Color inputKilEyeColor() throws WrongInputFormatException {
         String temp;
         Color eye;
 
@@ -112,7 +111,7 @@ public class FileInput extends Input {
         throw new WrongInputFormatException();
     }
 
-    public Color inputKilHairColor() throws WrongInputFormatException{
+    public Color inputKilHairColor() throws WrongInputFormatException {
         String temp;
         Color hair;
 
@@ -125,7 +124,7 @@ public class FileInput extends Input {
 
     }
 
-    public long inputKilZLoc() throws WrongInputFormatException{
+    public long inputKilZLoc() throws WrongInputFormatException {
         long locZ;
 
         if (sc.hasNextLong()) {
@@ -137,7 +136,7 @@ public class FileInput extends Input {
         throw new WrongInputFormatException();
     }
 
-    public Long inputKilYLoc() throws WrongInputFormatException{
+    public Long inputKilYLoc() throws WrongInputFormatException {
         long locY;
 
         if(sc.hasNextLong()) {
@@ -149,7 +148,7 @@ public class FileInput extends Input {
         throw new WrongInputFormatException();
     }
 
-    public int inputKilXLoc() throws WrongInputFormatException{
+    public int inputKilXLoc() throws WrongInputFormatException {
         int locX;
 
         if (sc.hasNextInt()) {
@@ -161,15 +160,15 @@ public class FileInput extends Input {
         throw new WrongInputFormatException();
     }
 
-    public Country inputKilNation() throws WrongInputFormatException{
+    public Country inputKilNation() throws WrongInputFormatException {
         String temp = sc.nextLine();
-        if (temp.toUpperCase().matches("ITALY|USA|VATICAN|NORTH|KOREA|INDIA"))
+        if (temp.toUpperCase().matches("ITALY|USA|VATICAN|NORTH_KOREA|INDIA"))
             return Country.valueOf(temp.toUpperCase());
 
         throw new WrongInputFormatException();
     }
 
-    public boolean needKiller() throws WrongInputFormatException{
+    public boolean needKiller() throws WrongInputFormatException {
         String ans = sc.nextLine();
         if (ans.matches("y|n"))
             switch(ans) {
@@ -177,7 +176,8 @@ public class FileInput extends Input {
                 case "n": return false;
             }
         throw new WrongInputFormatException();
-
     }
+
+
 
 }

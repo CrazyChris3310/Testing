@@ -1,9 +1,12 @@
 package Dragon;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
+/**
+ * Class {@code Dragon} defines a dragon with its caracteristics
+ */
 public class Dragon{
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -106,5 +109,26 @@ public class Dragon{
                 "wingspan: " + wingspan + "\n" +
                 "type: " + type + "\n" +
                 "killer: " + killer + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dragon dragon = (Dragon) o;
+        return age == dragon.age &&
+                id.equals(dragon.id) &&
+                name.equals(dragon.name) &&
+                coordinates.equals(dragon.coordinates) &&
+                creationDate.equals(dragon.creationDate) &&
+                Objects.equals(description, dragon.description) &&
+                Objects.equals(wingspan, dragon.wingspan) &&
+                type == dragon.type &&
+                Objects.equals(killer, dragon.killer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, coordinates, creationDate, age, description, wingspan, type, killer);
     }
 }

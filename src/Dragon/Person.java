@@ -1,6 +1,7 @@
 package Dragon;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -47,11 +48,29 @@ public class Person {
     @Override
     public String toString() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-        return "name: '" + name + "'\n" +
+        return "\nname: '" + name + "'\n" +
                 "birthday: " + fmt.format(birthday) + "\n" +
                 "eyeColor: " + eyeColor + "\n" +
                 "hairColor: " + hairColor + "\n" +
                 "nationality: " + nationality + "\n" +
                 "location: " + location;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return name.equals(person.name) &&
+                birthday.equals(person.birthday) &&
+                eyeColor == person.eyeColor &&
+                hairColor == person.hairColor &&
+                nationality == person.nationality &&
+                location.equals(person.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, birthday, eyeColor, hairColor, nationality, location);
     }
 }

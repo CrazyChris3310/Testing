@@ -1,14 +1,26 @@
-show
-print_descending
-show
 add
-Viktor
-24
-12,5
-18
-Blank space
-145
-fire
+Forsty
+25
+12,7
+23
+
+
+water
 n
-show
-history
+add
+abjuasys
+12
+48
+5
+Got stroke at 3 years
+89
+underground
+y
+Frensis
+1986-06-13 19:05:24
+black
+yellow
+usa
+249
+581
+947

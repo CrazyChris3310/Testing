@@ -1,13 +1,24 @@
-import Dragon.*;
+package Input;
 
+import Dragon.*;
 import java.util.Scanner;
 
+/**
+ * Class {@code ConsoleInput} defines methods to work with an input from console.
+ * Each method has a validation of User's input.
+ */
 public class ConsoleInput extends Input{
 
+    /**
+     * Constructs input class with console input as a source.
+     */
     public ConsoleInput() {
         sc = new Scanner(System.in);
     }
 
+
+
+    @Override
     public String inputDragonName() {
         String dragName;
         System.out.print("Enter the name: ");
@@ -210,7 +221,7 @@ public class ConsoleInput extends Input{
         System.out.print("Enter the killer's nationality: (ITALY, NORTH_KOREA, USA, INDIA, VATICAN) ");
         while(true) {
             temp = sc.nextLine();
-            if (temp.toUpperCase().matches("ITALY|USA|VATICAN|NORTH|KOREA|INDIA")) {
+            if (temp.toUpperCase().matches("ITALY|USA|VATICAN|NORTH_KOREA|INDIA")) {
                 return Country.valueOf(temp.toUpperCase());
             }
             System.out.print("Try again: ");
@@ -230,6 +241,5 @@ public class ConsoleInput extends Input{
             System.out.print("Wrong answer format! ");
         }
     }
-
 
 }
