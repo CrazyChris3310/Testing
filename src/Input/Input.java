@@ -14,22 +14,116 @@ abstract public class Input {
 
     Scanner sc;
 
+    /**
+     * Input name.
+     * @return dragon's name.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public String inputDragonName() throws WrongInputFormatException;
+
+    /**
+     * Input X coordinate.
+     * @return dragon's X coordinate.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public Long inputXCord() throws WrongInputFormatException;
+
+    /**
+     * Input Y coordinate.
+     * @return dragon's Y coordinate.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public float inputYCord() throws WrongInputFormatException;
+
+    /**
+     * Input age.
+     * @return dragon's age.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public int inputAge() throws WrongInputFormatException;
+
+    /**
+     * Input description.
+     * @return dragon's description.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public String inputDescription() throws WrongInputFormatException;
+
+    /**
+     * Input wingspan.
+     * @return dragon's wingspan.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public Long inputWingspan() throws WrongInputFormatException;
+
+    /**
+     * Input type of the dragon.
+     * @return dragon's type.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public DragonType inputType() throws WrongInputFormatException;
 
+    /**
+     * Input name.
+     * @return killer's name.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public String inputKillerName() throws WrongInputFormatException;
+
+    /**
+     * Input date.
+     * @return killer's date of birth.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public String inputKilBirthday() throws WrongInputFormatException;
+
+    /**
+     * Input eye color.
+     * @return killer's eye color.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public Color inputKilEyeColor() throws WrongInputFormatException;
+
+    /**
+     * Input hair color.
+     * @return killer's hair color.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public Color inputKilHairColor() throws WrongInputFormatException;
+
+    /**
+     * Input nationality.
+     * @return killer's nationality.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public Country inputKilNation() throws WrongInputFormatException;
+
+    /**
+     * Input X location.
+     * @return killer's X location.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public int inputKilXLoc() throws WrongInputFormatException;
+
+    /**
+     * Input Y location.
+     * @return killer's Y location.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public Long inputKilYLoc() throws WrongInputFormatException;
+
+    /**
+     * Input Z location.
+     * @return killer's Z location.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public long inputKilZLoc() throws WrongInputFormatException;
+
+    /**
+     * Define whether the killer is needed.
+     * @return true if killer is needed, false otherwise.
+     * @throws WrongInputFormatException if data is wrong.
+     */
     abstract public boolean needKiller() throws WrongInputFormatException;
 
     /**

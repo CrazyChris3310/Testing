@@ -2,6 +2,9 @@ package Dragon;
 
 import java.util.Objects;
 
+/**
+ * Defines Location of the killer.
+ */
 public class Location {
     private int x;
     private Long y; //Поле не может быть null
@@ -14,14 +17,25 @@ public class Location {
         this.z = z;
     }
 
+    /**
+     *
+     * @return x coordinate
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     *
+     * @return y coordinate
+     */
     public Long getY() {
         return y;
     }
 
+    /**
+     * @return z coordinate.
+     */
     public long getZ() {
         return z;
     }

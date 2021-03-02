@@ -5,6 +5,7 @@ import Exceptions.IdException;
 import Exceptions.WrongInputFormatException;
 import Input.Input;
 import utilities.DragonCollection;
+import java.time.ZonedDateTime;
 
 /**
  * Command "update".
@@ -23,9 +24,10 @@ public class UpdateIdCommand extends Command{
         Long id;
         try {
             id = input.inputId();
-            drg.removeFromQueue(id);
+            ZonedDateTime creation = drg.removeFromQueue(id);
             Dragon dragon = input.inputDragon();
             dragon.setId(id);
+            dragon.setCreationDate(creation);
             drg.add(dragon);
         } catch (IdException e) {
             System.out.println(e);

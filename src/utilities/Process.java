@@ -17,8 +17,8 @@ public class Process {
     /**
      * Constructs a {@code Process} with given collection and input source.
      * Also defines all the commands available.
-     * @param drg
-     * @param source
+     * @param drg given collection.
+     * @param source input stream.
      */
     public Process(DragonCollection drg, Input source) {
         dragons = drg;

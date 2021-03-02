@@ -11,14 +11,27 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.time.ZonedDateTime;
 
 /**
  * Class {@code DragonCollection} defines the collection and methods for managing it.
  */
 public class DragonCollection {
+    /**
+     * The collection of dragons.
+     */
     private PriorityQueue<Dragon> collection;
+    /**
+     * History of commands.
+     */
     private LinkedList<String> history;
+    /**
+     * Date and time when collection was initialized.
+     */
     final private LocalDateTime initDate;
+    /**
+     * Path to a file with data.
+     */
     private File path;
 
     /**
@@ -85,17 +98,34 @@ public class DragonCollection {
         }
     }
 
+    /**
+     *
+     * @return path to csv file with data.
+     */
     public File getFile() {
         return path;
     }
+
+    /**
+     *
+     * @return date and time of collection's initialization.
+     */
     public LocalDateTime getInitDate() {
         return initDate;
     }
 
+    /**
+     *
+     * @return size of the collection.
+     */
     public int getSize() {
         return collection.size();
     }
 
+    /**
+     *
+     * @return collection of dragons.
+     */
     public PriorityQueue<Dragon> getCollection() {
         return collection;
     }
@@ -109,15 +139,17 @@ public class DragonCollection {
     }
 
     /**
-     * Removes element that id equals ident.
+     * Removes element that id equals ident and returns creation date of that dragon.
      * @param ident id of element to delete.
+     * @return date and time when dragon was created.
      * @throws NoSuchIdException if element with such id is not in collection.
      */
-    public void removeFromQueue(Long ident) throws NoSuchIdException {
+    public ZonedDateTime removeFromQueue(Long ident) throws NoSuchIdException {
         for (Dragon i : collection) {
             if (i.getId().equals(ident)) {
+                ZonedDateTime creation = i.getCreationDate();
                 collection.remove(i);
-                return;
+                return creation;
             }
         }
 

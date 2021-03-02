@@ -9,15 +9,28 @@ public class Coordinates {
     private Long x; //Максимальное значение поля: 302, Поле не может быть null
     private float y;
 
+    /**
+     * Defines coordinates of dragon.
+     * @param x coordinate on x.
+     * @param y coordinate on y.
+     */
     public Coordinates(Long x, float y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     *
+     * @return value of x coordinate.
+     */
     public Long getX() {
         return x;
     }
 
+    /**
+     *
+     * @return value of x coordinate.
+     */
     public float getY() {
         return y;
     }
