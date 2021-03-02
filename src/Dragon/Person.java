@@ -83,12 +83,12 @@ public class Person {
     @Override
     public String toString() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-        return "\nname: '" + name + "'\n" +
-                "birthday: " + fmt.format(birthday) + "\n" +
-                "eyeColor: " + eyeColor + "\n" +
-                "hairColor: " + hairColor + "\n" +
-                "nationality: " + nationality + "\n" +
-                "location: " + location;
+        return "\n  name: " + name + "\n" +
+                "  birthday: " + fmt.format(birthday) + "\n" +
+                "  eyeColor: " + eyeColor + "\n" +
+                "  hairColor: " + hairColor + "\n" +
+                "  nationality: " + nationality + "\n" +
+                "  location: " + location;
     }
 
     @Override

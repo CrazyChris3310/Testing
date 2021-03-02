@@ -289,7 +289,6 @@ public class ConsoleInput extends Input{
     @Override
     public Country inputKilNation() {
         String temp;
-        Country nation;
         System.out.print("Enter the killer's nationality: (ITALY, NORTH_KOREA, USA, INDIA, VATICAN) ");
         while(true) {
             temp = sc.nextLine();

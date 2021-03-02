@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.regex.Pattern;
 
 /**
  * Defines methods for parsing from csv files.
@@ -54,9 +56,17 @@ public class Parser {
             }
         }
 
+        for (int i = 0; i < columnList.size(); ++i) {
+            String s = columnList.get(i);
+            if (s.matches("^\".*?\"$")) {
+                s = s.substring(1, s.length() - 1);
+                columnList.set(i, s);
+            }
+        }
+
         return columnList;
 
-    };
+    }
 
     /**
      * Checks if value is part of previous value.

@@ -161,11 +161,11 @@ public class Dragon{
     public String toString() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss xxxxx");
         return  "id: " + id + "\n" +
-                "name: '" + name + "'\n" +
+                "name: " + name + "\n" +
                 "coordinates: " + coordinates + "\n" +
                 "creationDate: " + fmt.format(creationDate) + "\n" +
                 "age: " + age + "\n" +
-                "description: '" + description + "'\n" +
+                "description: " + description + "\n" +
                 "wingspan: " + wingspan + "\n" +
                 "type: " + type + "\n" +
                 "killer: " + killer + "\n";
